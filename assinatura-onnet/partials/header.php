@@ -9,9 +9,9 @@
 <body>
 
 <div class="header">
-   <a href="http://localhost:3000/index.php">
-    <img src="assets/logo-onnet.png" alt="OnNet Telecom">
-</a>
+    <a href="../index.php">
+        <img src="assets/logo-sempre.png" alt="OnNet Telecom">
+    </a>
 </div>
 
 <div class="main">
