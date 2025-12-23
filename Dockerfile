@@ -1,38 +1,57 @@
-FROM php:8.2-apache
+// Source - https://stackoverflow.com/a
+// Posted by Nil Suria
+// Retrieved 2025-12-22, License - CC BY-SA 4.0
 
-# 1. Instalar dependências da biblioteca GD
+FROM php:8.1-apache
+
+# Arguments defined in docker-compose.yml
+ARG user
+ARG uid
+
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
+    git \
+    curl \
     libpng-dev \
-    libwebp-dev \
-    && rm -rf /var/lib/apt/lists/*
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    unzip
 
-# 2. Instalar extensões PHP
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
-    && docker-php-ext-install -j$(nproc) gd pdo_mysql mysqli
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# 3. SOLUÇÃO DEFINITIVA PARA MPM:
-# Remove todos os links de MPM habilitados e garante que APENAS o prefork exista
-RUN rm -f /etc/apache2/mods-enabled/mpm_* && \
-    ln -s /etc/apache2/mods-available/mpm_prefork.load /etc/apache2/mods-enabled/mpm_prefork.load && \
-    ln -s /etc/apache2/mods-available/mpm_prefork.conf /etc/apache2/mods-enabled/mpm_prefork.conf
+# Install PHP extensions
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
-# 4. Habilitar mod_rewrite
-RUN a2enmod rewrite
+# Get latest Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# 5. Configurar diretório de trabalho e porta do Railway
+# Set up node and npm
+
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash
+RUN apt-get update && apt-get -y install nodejs 
+
+# Set working directory
+WORKDIR /var/www
+
+RUN apt-get update && apt-get install -y \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libpng-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd
+
 WORKDIR /var/www/html
 COPY . .
-RUN chown -R www-data:www-data /var/www/html
 
-# Ajustar a porta para o Railway (Troca 80 pela variável $PORT)
-RUN sed -i 's/80/${PORT}/g' /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf
+#Modify php.ini setings
 
-# 6. Forçar o ServerName para evitar avisos inúteis
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+RUN touch /usr/local/etc/php/conf.d/uploads.ini \
+    && echo "upload_max_filesize = 10M;" >> /usr/local/etc/php/conf.d/uploads.ini
 
-EXPOSE 80
+#Serve the application
 
-# Usar o comando padrão da imagem oficial
-CMD ["apache2-foreground"]
+RUN composer install
+RUN npm install
+CMD php artisan migrate --force && php artisan storage:link && php artisan serve --host=0.0.0.0 --port=$PORT
