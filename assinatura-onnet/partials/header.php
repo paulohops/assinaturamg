@@ -10,7 +10,7 @@
 
 <div class="header">
     <a href="../index.php">
-        <img src="assets/logo-sempre.png" alt="OnNet Telecom">
+        <img src="assets/logo-onnet.png" alt="OnNet Telecom">
     </a>
 </div>
 
