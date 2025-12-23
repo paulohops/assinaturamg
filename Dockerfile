@@ -1,32 +1,34 @@
-# Imagem oficial do PHP com Apache
+# Imagem oficial PHP + Apache
 FROM php:8.2-apache
 
-# Instala dependências para GD
+# Instala dependências GD
 RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libpng-dev \
+        gettext-base \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Habilita mod_rewrite do Apache
+# Habilita mod_rewrite
 RUN a2enmod rewrite
 
-# Copia o projeto para o diretório padrão do Apache
+# Copia projeto
 COPY . /var/www/html/
 
-# Ajusta permissões
+# Permissões
 RUN chown -R www-data:www-data /var/www/html
 
-# Define porta padrão (Railway sobrescreve)
+# Porta padrão (Railway sobrescreve)
 ENV PORT 8080
 
-# Configura Apache para escutar na porta definida por $PORT
-RUN sed -i "s/80/${PORT}/g" /etc/apache2/ports.conf /etc/apache2/sites-available/000-default.conf
+# Substitui a porta do Apache em tempo de execução
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # Expõe a porta dinâmica
-EXPOSE ${PORT}
+EXPOSE 8080
 
-# Comando para iniciar Apache
-CMD ["apache2-foreground"]
+# Usa nosso entrypoint customizado
+ENTRYPOINT ["docker-entrypoint.sh"]
