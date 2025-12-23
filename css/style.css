@@ -1,0 +1,128 @@
+/* ============================= */
+/* ===== RESET E FONTES ======== */
+/* ============================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', Arial, sans-serif;
+}
+
+body {
+
+    margin: 0;
+    min-height: 100vh;
+    overflow: hidden; /* impede qualquer scroll */
+
+
+    background: linear-gradient(
+        135deg,
+        rgba(238, 92, 22, 1) 0%,
+        rgba(238, 92, 22, 0.9) 25%,
+        rgba(42, 114, 51, 0.9) 65%,
+        rgba(0, 92, 52, 1) 100%
+    );
+}
+/* ===== LOGO ======== */
+/* ============================= */
+.card-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.card-logo img {
+    max-width: 180px;
+    width: 100%;
+    height: auto;
+}
+
+.card {
+    background: #ffffff;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+
+/* ============================= */
+/* ===== MAIN CARD ============= */
+.main {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.card {
+    background: #ffffff;
+    max-width: 480px;
+    width: 100%;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0,0,0,.25);
+    text-align: center;
+}
+
+h1, h2 {
+    color: #154572;
+    margin-bottom: 24px;
+}
+
+p {
+    color: #444;
+    margin-bottom: 24px;
+}
+
+/* ============================= */
+/* ===== BOTÃO DA ONNET ===== */
+.onnet-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0px; /* espaço entre os botões */
+    margin-top: 10px;
+}
+
+.onnet-buttons a button {
+    width: 100%;
+    background: #007040;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 14px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.onnet-buttons a button:hover {
+    background: #005c34;
+    transform: scale(1.02);
+}
+
+/* ============================= */
+/* ===== BOTÃO DA ONNET ===== */
+.sempre-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0px; /* espaço entre os botões */
+    margin-top: 10px;
+}
+
+.sempre-buttons a button {
+    width: 100%;
+    background: #FF4C00;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 14px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.sempre-buttons a button:hover {
+    background: #ad3400;
+    transform: scale(1.02);
+}

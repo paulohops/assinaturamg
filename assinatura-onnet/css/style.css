@@ -1,0 +1,219 @@
+/* ============================= */
+/* ===== RESET E FONTES ======== */
+/* ============================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', Arial, sans-serif;
+}
+
+body {
+    background: #005c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* ============================= */
+/* ===== HEADER ================ */
+/* ============================= */
+.header {
+    height: 70px;
+    background: #007040;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header img {
+    height: 38px;
+}
+
+/* ============================= */
+/* ===== MAIN CARD ============= */
+/* ============================= */
+.main {
+    flex: 1; /* ocupa o espaço entre header e footer */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px; /* respiro geral */
+}
+
+
+.card {
+    background: #ffffff;
+    max-width: 480px;
+    width: 100%;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0,0,0,.25);
+    text-align: center;
+}
+
+h1, h2 {
+    color: #154572;
+    margin-bottom: 24px;
+}
+
+p {
+    color: #444;
+    margin-bottom: 24px;
+}
+
+/* ============================= */
+/* ===== FORMULÁRIO ============ */
+/* ============================= */
+.form-group {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #154572;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #d0d7de;
+    font-size: 15px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #007040;
+}
+
+button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    background: #007040;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+button:hover {
+    background: #005c34;
+    transform: scale(1.02);
+}
+
+/* Botão secundário não destacado */
+.button-secondary {
+    background: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+}
+
+.button-secondary:hover {
+    background: #e0e0e0;
+    transform: scale(1.02);
+}
+
+/* ============================= */
+/* ===== ASSINATURA GERADA ===== */
+/* ============================= */
+.signature-output {
+    margin-top: 30px;
+}
+
+.signature-output img {
+    max-width: 100%;
+    border-radius: 12px;
+    border: 1px solid #d0d7de;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    display: block;
+    margin: 0 auto;
+}
+
+/* ============================= */
+/* ===== FOOTER ================= */
+.footer {
+    background: #007040;
+    color: #fff;
+    padding: 30px 20px;
+    font-size: 14px;
+    width: 100%;
+}
+
+.footer .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer .logo-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+.footer .info {
+    margin-top: 10px;
+    text-align: left;
+}
+
+.footer .separator {
+    width: 1px;
+    background: rgba(255,255,255,0.3);
+    margin: 0 20px;
+}
+
+.footer img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ============================= */
+/* ===== RESPONSIVIDADE ======== */
+@media(max-width: 768px) {
+    .main {
+        padding-bottom: 50px;
+}
+    .card {
+        padding: 24px;
+    }
+
+    h1, h2 {
+        font-size: 22px;
+    }
+
+    p {
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 15px;
+        padding: 12px;
+    }
+
+    .footer .row {
+        flex-direction: column;
+        text-align: center;
+        padding: 0 10px;
+    }
+
+    .footer .separator {
+        display: none;
+    }
+
+    .footer .info {
+        margin: 15px 0;
+        text-align: center;
+    }
+}
