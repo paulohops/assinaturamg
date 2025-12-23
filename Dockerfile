@@ -9,8 +9,10 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install gd \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# Habilita mod_rewrite apenas (sem tocar MPM)
 RUN a2enmod rewrite
 
+# Copia projeto
 COPY . /var/www/html/
 RUN chown -R www-data:www-data /var/www/html
 
