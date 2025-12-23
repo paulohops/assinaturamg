@@ -9,17 +9,23 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd
 
-# Habilita mod_rewrite do Apache (opcional, útil para URLs amigáveis)
+# Habilita mod_rewrite do Apache (opcional)
 RUN a2enmod rewrite
 
-# Copia todo o conteúdo do projeto para o diretório padrão do Apache
+# Copia o projeto para o Apache
 COPY . /var/www/html/
 
-# Define permissões corretas (opcional)
+# Ajusta permissões
 RUN chown -R www-data:www-data /var/www/html
 
-# Expondo a porta padrão do Apache
-EXPOSE 80
+# Define variável de ambiente padrão para a porta (Railway vai sobrescrever)
+ENV PORT 8080
 
-# Comando padrão para iniciar o Apache
+# Configura Apache para escutar na porta definida por $PORT
+RUN sed -i "s/80/${PORT}/g" /etc/apache2/ports.conf /etc/apache2/sites-available/000-default.conf
+
+# Exponha a porta (Railway usa automaticamente $PORT)
+EXPOSE ${PORT}
+
+# Inicia o Apache
 CMD ["apache2-foreground"]
